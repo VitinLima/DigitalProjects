@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>External</elementName>
+      <elementAttributes>
+        <entry>
+          <string>applicationType</string>
+          <appType>GHDL</appType>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>binary_to_bcd_converter</string>
+        </entry>
+        <entry>
+          <string>externalInputs</string>
+          <string>clk,rst,str,vin:8</string>
+        </entry>
+        <entry>
+          <string>Code</string>
+          <string>library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity binary_to_bcd_converter is
+    Port(
+        clk : in std_logic;
+        rst : in std_logic;
+        str : in std_logic;
+        vin : in std_logic_vector(7 downto 0);
+        gobt : out std_logic;
+        vout0 : out std_logic_vector(3 downto 0);
+        vout1 : out std_logic_vector(3 downto 0);
+        vout2 : out std_logic_vector(3 downto 0)
+    );
+end binary_to_bcd_converter;
+
+architecture Behavioral of binary_to_bcd_converter is
+
+    type states is (e0, e1, e2);
+    signal current_st : states;
+    signal s_ctr : std_logic_vector(2 downto 0);
+    signal s_reg4_t1, s_reg4_t2, s_reg4_t3 : std_logic_vector(3 downto 0);
+    signal s_regN_t : std_logic_vector(3 downto 0);
+
+begin
+
+    process(clk)
+    begin
+        if rst = &apos;1&apos; then
+            current_st &lt;= e0;
+            gobt &lt;= &apos;0&apos;;
+            s_ctr &lt;= &quot;000&quot;;
+            s_reg4_t1 &lt;= &quot;0000&quot;;
+            s_reg4_t2 &lt;= &quot;0000&quot;;
+            s_reg4_t3 &lt;= &quot;0000&quot;;
+            s_regN_t &lt;= &quot;0000&quot;;
+            vout0 &lt;= &quot;0000&quot;;
+            vout1 &lt;= &quot;0000&quot;;
+            vout2 &lt;= &quot;0000&quot;;
+        elsif rising_edge(clk) then
+            case current_st is
+                when e0 =&gt;
+                    if str = &apos;1&apos; then
+                        gobt &lt;= &apos;0&apos;;
+                        s_ctr &lt;= &quot;100&quot;;
+                        s_regN_t &lt;= vin(3 downto 0);
+                        s_reg4_t1 &lt;= vin(7 downto 4);
+                        s_reg4_t2 &lt;= &quot;0000&quot;;
+                        s_reg4_t3 &lt;= &quot;0000&quot;;
+                        current_st &lt;= e1;
+                    else
+                        current_st &lt;= e0;
+                        gobt &lt;= &apos;1&apos;;
+                    end if;
+                when e1 =&gt;
+                    if unsigned(s_reg4_t2) &gt; 9 then
+                        s_reg4_t2 &lt;= std_logic_vector(unsigned(s_reg4_t2)-10);
+                        s_reg4_t3 &lt;= std_logic_vector(unsigned(s_reg4_t3)+1);
+                        current_st &lt;= e1;
+                    elsif unsigned(s_reg4_t1) &gt; 9 then
+                        s_reg4_t1 &lt;= std_logic_vector(unsigned(s_reg4_t1)-10);
+                        s_reg4_t2 &lt;= std_logic_vector(unsigned(s_reg4_t2)+1);
+                        current_st &lt;= e1;
+                    elsif unsigned(s_ctr) &gt; 0 then
+                        s_reg4_t3 &lt;= s_reg4_t3(2 downto 0) &amp; s_reg4_t2(3);
+                        s_reg4_t2 &lt;= s_reg4_t2(2 downto 0) &amp; s_reg4_t1(3);
+                        s_reg4_t1 &lt;= s_reg4_t1(2 downto 0) &amp; s_regN_t(3);
+                        s_regN_t &lt;= s_regN_t(2 downto 0) &amp; &apos;0&apos;;
+                        s_ctr &lt;= std_logic_vector(unsigned(s_ctr)+1);
+                        current_st &lt;= e2;
+                    else
+                        current_st &lt;= e0;
+                        vout0 &lt;= s_reg4_t1;
+                        vout1 &lt;= s_reg4_t2;
+                        vout2 &lt;= s_reg4_t3;
+                        gobt &lt;= &apos;1&apos;;
+                    end if;
+                when e2 =&gt;
+                    if s_reg4_t3(0)=&apos;1&apos; then
+                        s_reg4_t2 &lt;= std_logic_vector(unsigned(s_reg4_t2)+6);
+                    end if;
+                    if s_reg4_t2(0)=&apos;1&apos; then
+                        s_reg4_t1 &lt;= std_logic_vector(unsigned(s_reg4_t1)+6);
+                    end if;
+                    current_st &lt;= e1;
+                when others =&gt;
+                    current_st &lt;= e0;
+            end case;
+        end if;
+    end process;
+
+end Behavioral;</string>
+        </entry>
+        <entry>
+          <string>externalOutputs</string>
+          <string>gobt,vout0:4,vout1:4,vout2:4</string>
+        </entry>
+        <entry>
+          <string>Width</string>
+          <int>5</int>
+        </entry>
+      </elementAttributes>
+      <pos x="440" y="300"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes/>
+      <pos x="60" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>dec</intFormat>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="168" z="false"/>
+        </entry>
+      </elementAttributes>
+      <pos x="60" y="300"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes/>
+      <pos x="60" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Clock</elementName>
+      <elementAttributes>
+        <entry>
+          <string>runRealTime</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Frequency</string>
+          <int>5</int>
+        </entry>
+      </elementAttributes>
+      <pos x="60" y="120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes/>
+      <pos x="800" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+      </elementAttributes>
+      <pos x="1060" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+      </elementAttributes>
+      <pos x="980" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+      </elementAttributes>
+      <pos x="880" y="80"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="320" y="320"/>
+      <p2 x="440" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="320"/>
+      <p2 x="640" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="60" y="240"/>
+      <p2 x="300" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="620" y="80"/>
+      <p2 x="800" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="860" y="80"/>
+      <p2 x="880" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="960" y="80"/>
+      <p2 x="980" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="1040" y="80"/>
+      <p2 x="1060" y="80"/>
+    </wire>
+    <wire>
+      <p1 x="60" y="180"/>
+      <p2 x="320" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="300" y="340"/>
+      <p2 x="440" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="340"/>
+      <p2 x="660" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="680" y="260"/>
+      <p2 x="860" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="60" y="120"/>
+      <p2 x="340" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="360"/>
+      <p2 x="440" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="360"/>
+      <p2 x="680" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="660" y="200"/>
+      <p2 x="960" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="300"/>
+      <p2 x="440" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="60" y="300"/>
+      <p2 x="280" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="300"/>
+      <p2 x="620" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="640" y="140"/>
+      <p2 x="1040" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="320" y="180"/>
+      <p2 x="320" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="640" y="140"/>
+      <p2 x="640" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="960" y="80"/>
+      <p2 x="960" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="1040" y="80"/>
+      <p2 x="1040" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="340" y="120"/>
+      <p2 x="340" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="660" y="200"/>
+      <p2 x="660" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="300"/>
+      <p2 x="280" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="680" y="260"/>
+      <p2 x="680" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="300" y="240"/>
+      <p2 x="300" y="340"/>
+    </wire>
+    <wire>
+      <p1 x="620" y="80"/>
+      <p2 x="620" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="860" y="80"/>
+      <p2 x="860" y="260"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>
