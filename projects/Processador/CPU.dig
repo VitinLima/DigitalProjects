@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
-  <version>1</version>
+  <version>2</version>
   <attributes>
     <entry>
       <string>Description</string>
@@ -397,7 +397,7 @@ SR0 sX 11
 SR1 sX 12
 SRX sX 13
 SRA sX 14
-RL sX 15
+RR sX 15
 
 SL0 sX 16
 SL1 sX 17
@@ -413,7 +413,7 @@ OUTPUT sX, (sY) 22
 ISRADDRESS aaa 30</string>
         </entry>
       </elementAttributes>
-      <pos x="-1280" y="2500"/>
+      <pos x="-1840" y="2500"/>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
@@ -2046,7 +2046,7 @@ ISRADDRESS aaa 30</string>
         </entry>
         <entry>
           <string>Frequency</string>
-          <int>50</int>
+          <int>2</int>
         </entry>
       </elementAttributes>
       <pos x="-900" y="3500"/>
@@ -2117,7 +2117,7 @@ ISRADDRESS aaa 30</string>
           <int>18</int>
         </entry>
       </elementAttributes>
-      <pos x="-760" y="3260"/>
+      <pos x="-960" y="3240"/>
     </visualElement>
     <visualElement>
       <elementName>RAMDualPort</elementName>
@@ -2305,6 +2305,150 @@ ISRADDRESS aaa 30</string>
       </elementAttributes>
       <pos x="20" y="3220"/>
     </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>Address</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-1420" y="3220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>BRAM</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-1420" y="3260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>ROM</elementName>
+      <elementAttributes>
+        <entry>
+          <string>AddrBits</string>
+          <int>10</int>
+        </entry>
+        <entry>
+          <string>isProgramMemory</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>Multiply3x4</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>24</int>
+        </entry>
+        <entry>
+          <string>Data</string>
+          <data>4c0,40b4,0,2b8,40000c,800c0c,c0100c,400830,c00444,8007bc,c8</data>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+      </elementAttributes>
+      <pos x="-1380" y="3220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Input Splitting</string>
+          <string>24</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>8,8,8</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-1280" y="3240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Input Splitting</string>
+          <string>5,1,2,8,2</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>18</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-980" y="3280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Input Splitting</string>
+          <string>8</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>2,1,5</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-1120" y="3240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Input Splitting</string>
+          <string>8</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>6,2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-1140" y="3380"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>BRAM</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-820" y="3320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Multiplexer</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>18</int>
+        </entry>
+      </elementAttributes>
+      <pos x="-920" y="3240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>DipSwitch</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>SelectProgram</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-980" y="3400"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -2384,6 +2528,10 @@ ISRADDRESS aaa 30</string>
       <p2 x="300" y="3340"/>
     </wire>
     <wire>
+      <p1 x="-1160" y="3340"/>
+      <p2 x="-980" y="3340"/>
+    </wire>
+    <wire>
       <p1 x="1260" y="3980"/>
       <p2 x="1300" y="3980"/>
     </wire>
@@ -2424,12 +2572,8 @@ ISRADDRESS aaa 30</string>
       <p2 x="540" y="2960"/>
     </wire>
     <wire>
-      <p1 x="0" y="3860"/>
-      <p2 x="40" y="3860"/>
-    </wire>
-    <wire>
-      <p1 x="60" y="3860"/>
-      <p2 x="100" y="3860"/>
+      <p1 x="-1420" y="3220"/>
+      <p2 x="-1380" y="3220"/>
     </wire>
     <wire>
       <p1 x="600" y="3220"/>
@@ -2442,6 +2586,14 @@ ISRADDRESS aaa 30</string>
     <wire>
       <p1 x="-40" y="3220"/>
       <p2 x="20" y="3220"/>
+    </wire>
+    <wire>
+      <p1 x="0" y="3860"/>
+      <p2 x="40" y="3860"/>
+    </wire>
+    <wire>
+      <p1 x="60" y="3860"/>
+      <p2 x="100" y="3860"/>
     </wire>
     <wire>
       <p1 x="-180" y="4120"/>
@@ -2502,6 +2654,10 @@ ISRADDRESS aaa 30</string>
     <wire>
       <p1 x="0" y="3100"/>
       <p2 x="40" y="3100"/>
+    </wire>
+    <wire>
+      <p1 x="-1080" y="3360"/>
+      <p2 x="-980" y="3360"/>
     </wire>
     <wire>
       <p1 x="-660" y="3360"/>
@@ -2568,8 +2724,20 @@ ISRADDRESS aaa 30</string>
       <p2 x="420" y="2980"/>
     </wire>
     <wire>
-      <p1 x="-20" y="3880"/>
-      <p2 x="40" y="3880"/>
+      <p1 x="-1320" y="3240"/>
+      <p2 x="-1280" y="3240"/>
+    </wire>
+    <wire>
+      <p1 x="-1260" y="3240"/>
+      <p2 x="-1120" y="3240"/>
+    </wire>
+    <wire>
+      <p1 x="-1100" y="3240"/>
+      <p2 x="-1080" y="3240"/>
+    </wire>
+    <wire>
+      <p1 x="-960" y="3240"/>
+      <p2 x="-920" y="3240"/>
     </wire>
     <wire>
       <p1 x="740" y="3240"/>
@@ -2594,6 +2762,10 @@ ISRADDRESS aaa 30</string>
     <wire>
       <p1 x="820" y="3240"/>
       <p2 x="860" y="3240"/>
+    </wire>
+    <wire>
+      <p1 x="-20" y="3880"/>
+      <p2 x="40" y="3880"/>
     </wire>
     <wire>
       <p1 x="-200" y="4140"/>
@@ -2680,6 +2852,10 @@ ISRADDRESS aaa 30</string>
       <p2 x="-100" y="3120"/>
     </wire>
     <wire>
+      <p1 x="-1180" y="3380"/>
+      <p2 x="-1140" y="3380"/>
+    </wire>
+    <wire>
       <p1 x="1240" y="3380"/>
       <p2 x="1320" y="3380"/>
     </wire>
@@ -2728,12 +2904,16 @@ ISRADDRESS aaa 30</string>
       <p2 x="1220" y="3000"/>
     </wire>
     <wire>
-      <p1 x="-40" y="3900"/>
-      <p2 x="40" y="3900"/>
+      <p1 x="-1420" y="3260"/>
+      <p2 x="-1380" y="3260"/>
     </wire>
     <wire>
-      <p1 x="560" y="4540"/>
-      <p2 x="640" y="4540"/>
+      <p1 x="-1260" y="3260"/>
+      <p2 x="-1160" y="3260"/>
+    </wire>
+    <wire>
+      <p1 x="-1100" y="3260"/>
+      <p2 x="-1060" y="3260"/>
     </wire>
     <wire>
       <p1 x="940" y="3260"/>
@@ -2748,8 +2928,16 @@ ISRADDRESS aaa 30</string>
       <p2 x="-480" y="3260"/>
     </wire>
     <wire>
-      <p1 x="-760" y="3260"/>
+      <p1 x="-880" y="3260"/>
       <p2 x="-720" y="3260"/>
+    </wire>
+    <wire>
+      <p1 x="-40" y="3900"/>
+      <p2 x="40" y="3900"/>
+    </wire>
+    <wire>
+      <p1 x="560" y="4540"/>
+      <p2 x="640" y="4540"/>
     </wire>
     <wire>
       <p1 x="-220" y="4160"/>
@@ -2836,12 +3024,20 @@ ISRADDRESS aaa 30</string>
       <p2 x="40" y="3780"/>
     </wire>
     <wire>
+      <p1 x="-1120" y="3400"/>
+      <p2 x="-1100" y="3400"/>
+    </wire>
+    <wire>
       <p1 x="-860" y="3400"/>
       <p2 x="-620" y="3400"/>
     </wire>
     <wire>
       <p1 x="-320" y="3400"/>
       <p2 x="0" y="3400"/>
+    </wire>
+    <wire>
+      <p1 x="-980" y="3400"/>
+      <p2 x="-900" y="3400"/>
     </wire>
     <wire>
       <p1 x="0" y="3400"/>
@@ -2912,12 +3108,16 @@ ISRADDRESS aaa 30</string>
       <p2 x="1800" y="3020"/>
     </wire>
     <wire>
-      <p1 x="-60" y="3920"/>
-      <p2 x="40" y="3920"/>
+      <p1 x="-1260" y="3280"/>
+      <p2 x="-1180" y="3280"/>
     </wire>
     <wire>
-      <p1 x="600" y="4560"/>
-      <p2 x="660" y="4560"/>
+      <p1 x="-1100" y="3280"/>
+      <p2 x="-980" y="3280"/>
+    </wire>
+    <wire>
+      <p1 x="-960" y="3280"/>
+      <p2 x="-920" y="3280"/>
     </wire>
     <wire>
       <p1 x="980" y="3280"/>
@@ -2950,6 +3150,14 @@ ISRADDRESS aaa 30</string>
     <wire>
       <p1 x="1120" y="3280"/>
       <p2 x="1160" y="3280"/>
+    </wire>
+    <wire>
+      <p1 x="-60" y="3920"/>
+      <p2 x="40" y="3920"/>
+    </wire>
+    <wire>
+      <p1 x="600" y="4560"/>
+      <p2 x="660" y="4560"/>
     </wire>
     <wire>
       <p1 x="1860" y="2900"/>
@@ -3124,12 +3332,8 @@ ISRADDRESS aaa 30</string>
       <p2 x="1460" y="4320"/>
     </wire>
     <wire>
-      <p1 x="-80" y="3940"/>
-      <p2 x="40" y="3940"/>
-    </wire>
-    <wire>
-      <p1 x="60" y="3940"/>
-      <p2 x="100" y="3940"/>
+      <p1 x="-1060" y="3300"/>
+      <p2 x="-980" y="3300"/>
     </wire>
     <wire>
       <p1 x="260" y="3300"/>
@@ -3142,6 +3346,14 @@ ISRADDRESS aaa 30</string>
     <wire>
       <p1 x="-620" y="3300"/>
       <p2 x="-480" y="3300"/>
+    </wire>
+    <wire>
+      <p1 x="-80" y="3940"/>
+      <p2 x="40" y="3940"/>
+    </wire>
+    <wire>
+      <p1 x="60" y="3940"/>
+      <p2 x="100" y="3940"/>
     </wire>
     <wire>
       <p1 x="1700" y="2920"/>
@@ -3256,12 +3468,8 @@ ISRADDRESS aaa 30</string>
       <p2 x="2480" y="4340"/>
     </wire>
     <wire>
-      <p1 x="-100" y="3960"/>
-      <p2 x="40" y="3960"/>
-    </wire>
-    <wire>
-      <p1 x="-560" y="2680"/>
-      <p2 x="-520" y="2680"/>
+      <p1 x="-1100" y="3320"/>
+      <p2 x="-980" y="3320"/>
     </wire>
     <wire>
       <p1 x="740" y="3320"/>
@@ -3274,6 +3482,18 @@ ISRADDRESS aaa 30</string>
     <wire>
       <p1 x="380" y="3320"/>
       <p2 x="420" y="3320"/>
+    </wire>
+    <wire>
+      <p1 x="-860" y="3320"/>
+      <p2 x="-820" y="3320"/>
+    </wire>
+    <wire>
+      <p1 x="-100" y="3960"/>
+      <p2 x="40" y="3960"/>
+    </wire>
+    <wire>
+      <p1 x="-560" y="2680"/>
+      <p2 x="-520" y="2680"/>
     </wire>
     <wire>
       <p1 x="1260" y="4220"/>
@@ -3328,8 +3548,16 @@ ISRADDRESS aaa 30</string>
       <p2 x="640" y="4540"/>
     </wire>
     <wire>
+      <p1 x="-900" y="3280"/>
+      <p2 x="-900" y="3400"/>
+    </wire>
+    <wire>
       <p1 x="-520" y="2880"/>
       <p2 x="-520" y="2920"/>
+    </wire>
+    <wire>
+      <p1 x="-1160" y="3260"/>
+      <p2 x="-1160" y="3340"/>
     </wire>
     <wire>
       <p1 x="-140" y="3540"/>
@@ -3384,6 +3612,10 @@ ISRADDRESS aaa 30</string>
       <p2 x="1560" y="4240"/>
     </wire>
     <wire>
+      <p1 x="-1180" y="3280"/>
+      <p2 x="-1180" y="3380"/>
+    </wire>
+    <wire>
       <p1 x="540" y="3620"/>
       <p2 x="540" y="3660"/>
     </wire>
@@ -3402,6 +3634,10 @@ ISRADDRESS aaa 30</string>
     <wire>
       <p1 x="1440" y="2900"/>
       <p2 x="1440" y="3160"/>
+    </wire>
+    <wire>
+      <p1 x="-1060" y="3260"/>
+      <p2 x="-1060" y="3300"/>
     </wire>
     <wire>
       <p1 x="1700" y="2920"/>
@@ -3468,6 +3704,10 @@ ISRADDRESS aaa 30</string>
       <p2 x="1460" y="4160"/>
     </wire>
     <wire>
+      <p1 x="-1080" y="3240"/>
+      <p2 x="-1080" y="3360"/>
+    </wire>
+    <wire>
       <p1 x="-60" y="3460"/>
       <p2 x="-60" y="3680"/>
     </wire>
@@ -3510,6 +3750,10 @@ ISRADDRESS aaa 30</string>
     <wire>
       <p1 x="1480" y="2940"/>
       <p2 x="1480" y="3080"/>
+    </wire>
+    <wire>
+      <p1 x="-1100" y="3320"/>
+      <p2 x="-1100" y="3400"/>
     </wire>
     <wire>
       <p1 x="460" y="4380"/>
@@ -3556,8 +3800,8 @@ ISRADDRESS aaa 30</string>
       <p2 x="-860" y="3540"/>
     </wire>
     <wire>
-      <p1 x="-860" y="3360"/>
-      <p2 x="-860" y="3400"/>
+      <p1 x="-860" y="3320"/>
+      <p2 x="-860" y="3360"/>
     </wire>
     <wire>
       <p1 x="-860" y="3440"/>
@@ -3566,6 +3810,10 @@ ISRADDRESS aaa 30</string>
     <wire>
       <p1 x="-860" y="3400"/>
       <p2 x="-860" y="3440"/>
+    </wire>
+    <wire>
+      <p1 x="-860" y="3360"/>
+      <p2 x="-860" y="3400"/>
     </wire>
     <wire>
       <p1 x="1500" y="4080"/>
